@@ -1,0 +1,54 @@
+version: 2
+jobs:
+  build:
+    docker:
+      # specify the version you desire here
+      - image: circleci/node:9.2.0
+
+      # Specify service dependencies here if necessary
+      # CircleCI maintains a library of pre-built images
+      # documented at https://circleci.com/docs/2.0/circleci-images/
+      # - image: circleci/mongo:3.4.4
+
+    working_directory: ~/repo
+
+    steps:
+      - checkout
+
+      # Download and cache dependencies
+      - restore_cache:
+          keys:
+          - v1-dependencies-{{ checksum "package.json" }}
+          # fallback to using the latest cache if no exact match is found
+          - v1-dependencies-
+
+      - run: yarn install
+
+      - save_cache:
+          paths:
+            - node_modules
+          key: v1-dependencies-{{ checksum "package.json" }}
+
+      # run tests!
+      - run: NODE_PATH=. ./node_modules/.bin/cucumber-js -r support -r steps -f json:cucumber_report.json || true
+      - run: node report-generator
+      - store_artifacts:
+          path: cucumber_report.html
+          destination: cucumber_report.html
+      - run:
+          name: Export to Cucumber Pro
+          command: |
+              profile_name=default
+              results_path=cucumber_report.json
+              mask='password|key|token'
+              revision=$(git rev-parse HEAD)
+              [[ -f $results_path ]] || (echo "No results found at '$results_path'" && exit 1)
+              env | \
+                grep --extended-regexp --ignore-case --invert-match "^.*(${mask}).*=" | \
+                curl \
+                  --fail \
+                  --request POST \
+                  --form env=@- \
+                  --form "profileName=${profile_name}" \
+                  --form "payload=@${results_path};type=application/x.cucumber.js.results+json" \
+                  "https://63071e9f13ab4639f6d10e0ae82b1a9fb6b@app.cucumber.pro/tests/results/tortas-mundo/$revision"
