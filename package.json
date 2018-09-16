@@ -1,0 +1,43 @@
+{
+  "name": "specifications",
+  "version": "1.0.0",
+  "description": "E2E Testing Framework",
+  "main": "index.js",
+  "scripts": {
+    "test": "cross-env NODE_PATH=. cucumber-js -r support -r steps -f json:cucumber_report.json"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/TortasMundo/specifications.git"
+  },
+  "keywords": [
+    "e2e",
+    "cucumber",
+    "testing"
+  ],
+  "author": "Alonso A. Ortega",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/TortasMundo/specifications/issues"
+  },
+  "homepage": "https://github.com/TortasMundo/specifications/issues#readme",
+  "dependencies": {
+    "bluebird": "^3.5.1",
+    "chai": "^4.1.2",
+    "cookie": "^0.3.1",
+    "cucumber": "^4.2.1",
+    "cucumber-html-reporter": "^4.0.2",
+    "dotenv": "^6.0.0",
+    "es6-promise": "^4.2.4",
+    "isomorphic-fetch": "^2.2.1",
+    "knex": "^0.14.6",
+    "moment": "^2.22.1",
+    "pg": "^7.4.3",
+    "ramda": "^0.25.0",
+    "socket.io-client": "^2.1.1",
+    "thunk-redis": "^2.1.6"
+  },
+  "devDependencies": {
+    "cross-env": "^5.2.0"
+  }
+}
