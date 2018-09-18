@@ -23,6 +23,10 @@ class Request extends Base {
       lomo: this.lomo,
       especial: this.especial,
       refrescos: this.refrescos,
+      customerLocation: {
+        latitude: '',
+        longitude: ''
+      }
     }
   }
 
