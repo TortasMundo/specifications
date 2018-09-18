@@ -15,12 +15,12 @@ When('Kitchen sends request to get last orders', async function() {
 })
 
 Then(
-  'Kitchen should receive one order with {int} jamon, {int} lomo, {int} especial and {int} refrescos',
+  'Kitchen should receive one order with {string} jamon, {string} lomo, {string} especial and {string} refrescos',
   function(jamon, lomo, especial, refrescos) {
     expect(this.lastResponse.data.length).to.eql(1)
-    expect(this.lastResponse.data[0].jamon).to.eql(jamon)
-    expect(this.lastResponse.data[0].lomo).to.eql(lomo)
-    expect(this.lastResponse.data[0].especial).to.eql(especial)
-    expect(this.lastResponse.data[0].refrescos).to.eql(refrescos)
+    expect(this.lastResponse.data[0].jamonQuantity).to.eql(jamon)
+    expect(this.lastResponse.data[0].lomoQuantity).to.eql(lomo)
+    expect(this.lastResponse.data[0].especialQuantity).to.eql(especial)
+    expect(this.lastResponse.data[0].refrescosQuantity).to.eql(refrescos)
   },
 )
