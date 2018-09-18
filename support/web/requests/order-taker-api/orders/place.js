@@ -37,18 +37,22 @@ class Request extends Base {
 
       withJamon(jamon) {
         this.jamon = jamon
+        return this
       }
 
       withLomo(lomo) {
         this.lomo = lomo
+        return this
       }
 
       withEspecial(especial) {
         this.especial = especial
+        return this
       }
 
       withRefrescos(refrescos) {
         this.refrescos = refrescos
+        return this
       }
 
       build() {
