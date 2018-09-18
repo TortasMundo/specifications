@@ -4,3 +4,4 @@ Feature: Get Orders
     Given Order Taker places an order
     When Kitchen sends request to get last orders
     Then Kitchen should receive successful response
+    And Kitchen should receive one order
