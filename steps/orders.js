@@ -1,4 +1,5 @@
 const R = require('ramda')
+const config = require('config')
 const { Given, When, Then } = require('cucumber')
 const GetOrdersRequest = require('support/web/requests/kitchen-api/orders/list')
 const PlaceOrderRequest = require('support/web/requests/order-taker-api/orders/place')
@@ -11,7 +12,7 @@ Given('Order Taker places an order with {int} jamon', async function(jamon) {
 
 Given('Kitchen subscribes to socket to get new orders', async function() {
   const socket = this.createKitchenSocket()
-  socket.emit('subscribe_for_placed_orders', {})
+  socket.emit('subscribe_for_order_placements', JSON.stringify(config.store_location))
   await this.sleep(300)
 })
 
