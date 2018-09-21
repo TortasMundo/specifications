@@ -8,6 +8,11 @@ class Context {
     this.lastResponse = {}
     this.currentRequest = {}
     this.kitchenSockets = []
+    this.state = {
+      kitchen: {
+        orders: []
+      }
+    }
   }
 
   async send(request) {

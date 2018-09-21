@@ -38,3 +38,14 @@ Then(
     expect(this.lastResponse.data[0].refrescosQuantity).to.eql(refrescos)
   },
 )
+
+Then(
+  'Kitchen should see an order with {string} jamon, {string} lomo, {string} especial and {string} refrescos',
+  function(jamon, lomo, especial, refrescos) {
+    expect(this.state.kitchen.orders.length).to.eql(1)
+    expect(this.state.kitchen.orders[0].jamonQuantity).to.eql(jamon)
+    expect(this.state.kitchen.orders[0].lomoQuantity).to.eql(lomo)
+    expect(this.state.kitchen.orders[0].especialQuantity).to.eql(especial)
+    expect(this.state.kitchen.orders[0].refrescosQuantity).to.eql(refrescos)
+  },
+)
