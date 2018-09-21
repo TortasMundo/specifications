@@ -9,6 +9,13 @@ Given('Order Taker places an order with {int} jamon', async function(jamon) {
   await this.send(request)
 })
 
+Given('Kitchen subscribes to socket to get new orders', async function () {
+  const socket = this.createKitchenSocket()
+  socket.emit('subscribe_for_placed_orders', {})
+  await this.sleep(300)
+});
+
+
 When('Kitchen sends request to get last orders', async function() {
   const request = new GetOrdersRequest.Builder().build()
   await this.send(request)

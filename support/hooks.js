@@ -4,6 +4,8 @@ const KnexFile = require('./knexfile')
 const knex = Knex(KnexFile)
 
 After(async function() {
+  this.kitchenSockets.map(s => s.disconnect())
+  this.kitchenSockets = {}
   await knex('orders').truncate()
 })
 
