@@ -9,4 +9,5 @@ After(async function() {
 
 AfterAll(async function() {
   await knex('orders').truncate()
+  await knex.destroy()
 })
