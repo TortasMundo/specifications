@@ -8,5 +8,5 @@ Feature: Get Orders
 
   Scenario: Get Placed Order On Socket
     Given Kitchen subscribes to socket to get new orders
-#    When Order Taker places an order with 2 lomo, 1 especial
+    When Order Taker places an order with 2 lomo, 1 especial
 #    Then Kitchen should see an order with '1' jamon, '0' lomo, '0' especial and '0' refrescos

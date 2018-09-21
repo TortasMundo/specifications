@@ -9,12 +9,19 @@ Given('Order Taker places an order with {int} jamon', async function(jamon) {
   await this.send(request)
 })
 
-Given('Kitchen subscribes to socket to get new orders', async function () {
+Given('Kitchen subscribes to socket to get new orders', async function() {
   const socket = this.createKitchenSocket()
   socket.emit('subscribe_for_placed_orders', {})
   await this.sleep(300)
-});
+})
 
+When('Order Taker places an order with {int} lomo, {int} especial', async function(lomo, especial) {
+  const request = new PlaceOrderRequest.Builder()
+    .withLomo(lomo)
+    .withEspecial(especial)
+    .build()
+  await this.send(request)
+})
 
 When('Kitchen sends request to get last orders', async function() {
   const request = new GetOrdersRequest.Builder().build()
