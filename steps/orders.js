@@ -12,7 +12,7 @@ Given('Order Taker places an order with {int} jamon', async function(jamon) {
 
 Given('Kitchen subscribes to socket to get new orders', async function() {
   const socket = this.createKitchenSocket()
-  socket.emit('subscribe_for_order_placements', JSON.stringify(config.store_location))
+  socket.emit('subscribe_for_order_placements', config.store_location)
   await this.sleep(300)
 })
 
