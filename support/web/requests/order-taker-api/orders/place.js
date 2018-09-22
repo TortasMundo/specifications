@@ -24,8 +24,8 @@ class Request extends Base {
       especial: this.especial,
       refrescos: this.refrescos,
       customerLocation: {
-        latitude: '',
-        longitude: ''
+        latitude: '27.691241',
+        longitude: '-105.1718194',
       }
     }
   }

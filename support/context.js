@@ -13,6 +13,10 @@ class Context {
         orders: []
       }
     }
+    this.initSocketLocks = {
+      placedOrder: 0,
+    }
+    this.socketLocks = this.initSocketLocks
   }
 
   async send(request) {
@@ -70,7 +74,18 @@ ${JSON.stringify(response)}`,
     socket.on('placed_order', order => {
       this._logSocketMessage('kitchen-api', 'placed_order', order)
       this.state.kitchen.orders.push(order)
+      this.socketLocks.placedOrder--
     })
+  }
+
+
+  _logSocketMessage(endpoint, channel, data) {
+    this.attach(`${endpoint} ${channel}`)
+    this.attach(
+      `socket response
+${JSON.stringify(data)}`,
+      'text/plain',
+    )
   }
 }
 

@@ -42,11 +42,12 @@ Then(
 
 Then(
   'Kitchen should see an order with {string} jamon, {string} lomo, {string} especial and {string} refrescos',
-  function(jamon, lomo, especial, refrescos) {
+  async function(jamon, lomo, especial, refrescos) {
+    await this.awaitForSocket('placedOrder')
     expect(this.state.kitchen.orders.length).to.eql(1)
-    expect(this.state.kitchen.orders[0].jamonQuantity).to.eql(jamon)
-    expect(this.state.kitchen.orders[0].lomoQuantity).to.eql(lomo)
-    expect(this.state.kitchen.orders[0].especialQuantity).to.eql(especial)
-    expect(this.state.kitchen.orders[0].refrescosQuantity).to.eql(refrescos)
+    expect(this.state.kitchen.orders[0].jamonQuantity.toString()).to.eql(jamon)
+    expect(this.state.kitchen.orders[0].lomoQuantity.toString()).to.eql(lomo)
+    expect(this.state.kitchen.orders[0].especialQuantity.toString()).to.eql(especial)
+    expect(this.state.kitchen.orders[0].refrescosQuantity.toString()).to.eql(refrescos)
   },
 )
