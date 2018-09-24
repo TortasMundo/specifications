@@ -6,6 +6,7 @@ const KnexFile = require('./knexfile')
 const knex = Knex(KnexFile)
 const redis = require('thunk-redis')
 const redisClient = redis.createClient(config.redis_host, {
+  database: 1,
   usePromise: Bluebird,
   returnBuffers: false,
   maxAttempts: Infinity,
