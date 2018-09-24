@@ -15,16 +15,26 @@ const redisClient = redis.createClient(config.redis_host, {
 })
 
 After(async function() {
-  await redisClient.flushall()
-  this.kitchenSockets.map(s => s.disconnect())
-  this.kitchenSockets = {}
-  this.socketLocks = this.initSocketLocks
-  await knex('orders').truncate()
+  try {
+    await redisClient.flushall()
+    this.kitchenSockets.map(s => s.disconnect())
+    this.kitchenSockets = {}
+    this.socketLocks = this.initSocketLocks
+    await knex('orders').truncate()
+  } catch (e) {
+    console.log('e: ', e)
+    throw e
+  }
 })
 
 AfterAll(async function() {
-  await redisClient.flushall()
-  await knex('orders').truncate()
-  await knex.destroy()
-  await redisClient.quit()
+  try {
+    await redisClient.flushall()
+    await knex('orders').truncate()
+    await knex.destroy()
+    await redisClient.quit()
+  } catch (e) {
+    console.log('e: ', e)
+    throw e
+  }
 })
