@@ -28,13 +28,13 @@ After(async function() {
 })
 
 AfterAll(async function() {
-  // try {
-  //   await redisClient.flushall()
-  //   await knex('orders').truncate()
-  //   await knex.destroy()
-  //   await redisClient.quit()
-  // } catch (e) {
-  //   console.log('e: ', e)
-  //   throw e
-  // }
+  try {
+    await redisClient.flushall()
+    await knex('orders').truncate()
+    await knex.destroy()
+    await redisClient.quit()
+  } catch (e) {
+    console.log('e: ', e)
+    throw e
+  }
 })
