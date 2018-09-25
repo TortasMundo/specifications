@@ -4,6 +4,30 @@ const { Given, When, Then } = require('cucumber')
 const GetOrdersRequest = require('support/web/requests/kitchen-api/orders/list')
 const PlaceOrderRequest = require('support/web/requests/order-taker-api/orders/place')
 const { expect } = require('chai')
+const Knex = require('knex')
+const KnexFile = require('../support/knexfile')
+const knex = Knex(KnexFile)
+const moment = require('moment-timezone')
+
+Given('there was an order registered yesterday', async function() {
+  await knex('orders').insert({
+    customerCode: '0',
+    delivererId: '0',
+    jamonQuantity: '0',
+    lomoQuantity: '1',
+    especialQuantity: '0',
+    refrescosQuantity: '0',
+    total: 50,
+    status: 'ORDERED',
+    paidOnline: false,
+    customerLocationLatitude: '',
+    customerLocationLongitude: '',
+    delivererLocationLatitude: '',
+    delivererLocationLongitude: '',
+    orderedAt: moment().subtract(1, 'days'),
+  })
+  await knex.destroy()
+})
 
 Given('Order Taker places an order with {int} jamon', async function(jamon) {
   const request = new PlaceOrderRequest.Builder().withJamon(jamon).build()
@@ -29,8 +53,12 @@ When('Kitchen sends request to get last orders', async function() {
   await this.send(request)
 })
 
+Then('Kitchen should receive one order', function() {
+  expect(this.lastResponse.data.length).to.eql(1)
+})
+
 Then(
-  'Kitchen should receive one order with {string} jamon, {string} lomo, {string} especial and {string} refrescos',
+  'Kitchen should receive an order with {string} jamon, {string} lomo, {string} especial and {string} refrescos',
   function(jamon, lomo, especial, refrescos) {
     expect(this.lastResponse.data.length).to.eql(1)
     expect(this.lastResponse.data[0].jamonQuantity).to.eql(jamon)
@@ -51,3 +79,11 @@ Then(
     expect(this.state.kitchen.orders[0].refrescosQuantity.toString()).to.eql(refrescos)
   },
 )
+
+Then('Kitchen should receive one order with status {string}', function(status) {
+  expect(this.lastResponse.data[0].status).to.eql(status)
+})
+
+Then('Kitchen should see an order with status {string}', function(status) {
+  expect(this.state.kitchen.orders[0].status).to.eql(status)
+})
