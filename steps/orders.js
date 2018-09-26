@@ -29,7 +29,7 @@ Given('there was an order registered yesterday', async function () {
   await knex.destroy()
 })
 
-Given('Order Taker places an order', async function (jamon) {
+Given('Order Taker places an order', async function () {
   const request = new PlaceOrderRequest.Builder().build()
   await this.send(request)
 })
@@ -83,10 +83,10 @@ Then(
   async function (jamon, lomo, especial, refrescos) {
     await this.awaitForSocket('placedOrder')
     expect(this.state.kitchen.orders.length).to.eql(1)
-    expect(this.state.kitchen.orders[0].jamonQuantity.toString()).to.eql(jamon)
-    expect(this.state.kitchen.orders[0].lomoQuantity.toString()).to.eql(lomo)
-    expect(this.state.kitchen.orders[0].especialQuantity.toString()).to.eql(especial)
-    expect(this.state.kitchen.orders[0].refrescosQuantity.toString()).to.eql(refrescos)
+    expect(this.state.kitchen.orders[0].jamon_quantity.toString()).to.eql(jamon)
+    expect(this.state.kitchen.orders[0].lomo_quantity.toString()).to.eql(lomo)
+    expect(this.state.kitchen.orders[0].especial_quantity.toString()).to.eql(especial)
+    expect(this.state.kitchen.orders[0].refrescos_quantity.toString()).to.eql(refrescos)
   },
 )
 
