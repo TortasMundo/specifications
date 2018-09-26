@@ -8,11 +8,12 @@ const Knex = require('knex')
 const KnexFile = require('../support/knexfile')
 const knex = Knex(KnexFile)
 const moment = require('moment-timezone')
+const uuid = require('uuid')
 
 Given('there was an order registered yesterday', async function () {
   await knex('orders').insert({
     customer_code: '0',
-    code: '123',
+    code: uuid(),
     deliverer_id: '0',
     store_id: 1,
     jamon_quantity: '0',
