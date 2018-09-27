@@ -2,6 +2,7 @@ const R = require('ramda')
 const config = require('config')
 const {Given, When, Then} = require('cucumber')
 const GetOrdersRequest = require('support/web/requests/kitchen-api/orders/list')
+const UpdateOrderStatusRequest = require('support/web/requests/kitchen-api/orders/update_status')
 const PlaceOrderRequest = require('support/web/requests/order-taker-api/orders/place')
 const {expect} = require('chai')
 const Knex = require('knex')
@@ -59,9 +60,14 @@ When('Kitchen sends request to get last orders', async function () {
   await this.send(request)
 })
 
-When('Kitchen updates last order to {string}', function (string) {
-  // Write code here that turns the phrase above into concrete actions
-  return 'pending'
+When('Kitchen updates last order to {string}', async function (status) {
+  const lastOrderCode = this.state.kitchen.orders[0].code
+  const request = new UpdateOrderStatusRequest.Builder()
+    .withCode(lastOrderCode)
+    .withNewStatus(status)
+    .build()
+
+  await this.send(request)
 })
 
 Then('Kitchen should receive one order', function () {

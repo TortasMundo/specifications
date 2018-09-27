@@ -14,7 +14,7 @@ Feature: Get Orders
     Then Kitchen should receive successful response
     And Kitchen should receive one order
 
-  Scenario: Get Placed Order On Socket
+  Scenario: Listen For Placed Orders
     Given Kitchen subscribes to socket to get new orders
     When Order Taker places an order with 2 lomo, 1 especial
     Then Kitchen should see an order with '0' jamon, '2' lomo, '1' especial and '0' refrescos
