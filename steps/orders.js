@@ -26,7 +26,7 @@ Given('there was an order registered yesterday', async function () {
     paid_online: false,
     customer_location_latitude: '',
     customer_location_longitude: '',
-    ordered_at: moment().subtract(1, 'days'),
+    ordered_at: moment().tz('America/Chihuahua').subtract(1, 'days'),
   })
   await knex.destroy()
 })

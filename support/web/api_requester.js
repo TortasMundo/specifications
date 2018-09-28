@@ -9,6 +9,7 @@ api_requester.send = async (request) => {
     headers: {
       'Content-Type': 'application/json',
       'is-test': 'true',
+      'timezone': 'America/Chihuahua'
     },
   }
   let responseText
