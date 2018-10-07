@@ -32,9 +32,17 @@ Given('there was an order registered yesterday', async function () {
 })
 
 Given('Order Taker places an order', async function () {
-  const request = new PlaceOrderRequest.Builder().build()
+  const request = new PlaceOrderRequest.Builder()
+    .withLomo(1)
+    .build()
   await this.send(request)
 })
+
+Given('Order Taker places an order with zero quantities', async function () {
+  const request = new PlaceOrderRequest.Builder().build()
+  await this.send(request)
+});
+
 
 Given('Order Taker places an order with {int} jamon', async function (jamon) {
   const request = new PlaceOrderRequest.Builder().withJamon(jamon).build()
