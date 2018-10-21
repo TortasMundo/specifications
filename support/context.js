@@ -6,6 +6,7 @@ class Context {
   constructor(params) {
     this.attach = params.attach
     this.lastResponse = {}
+    this.lastPlacedOrder = {}
     this.currentRequest = {}
     this.kitchenSockets = []
     this.state = {
@@ -25,6 +26,10 @@ class Context {
     this.lastResponse = await apiRequester.send(request)
 
     this._logResponseInfo(this.lastResponse)
+
+    if (this.lastResponse.success && request.path === 'orders/place') {
+      this.lastPlacedOrder = this.lastResponse.data
+    }
 
     return this.lastResponse
   }

@@ -59,6 +59,7 @@ Given('Kitchen subscribes to socket to get new orders', async function() {
 Given('Order Taker changes last order quantities to {int} jamon, {int} lomo, {int} especial, {int} refrescos',
   async function(jamon, lomo, especial, refrescos) {
   const request = new UpdateOrderQuantitiesRequest.Builder()
+    .withCode(this.lastPlacedOrder.code)
     .withNewJamon(jamon)
     .withNewLomo(lomo)
     .withNewEspecial(especial)
