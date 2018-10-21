@@ -1,9 +1,6 @@
 const { setWorldConstructor } = require('cucumber')
 const apiRequester = require('./web/api_requester')
 const kitchenSocket = require('./web/sockets/kitchen_socket_client')
-const Knex = require('knex')
-const KnexFile = require('../support/knexfile')
-const knex = Knex(KnexFile)
 
 class Context {
   constructor(params) {
@@ -21,10 +18,6 @@ class Context {
       placedOrder: 0,
     }
     this.socketLocks = this.initSocketLocks
-  }
-
-  getKnex(tableName) {
-    return knex(tableName)
   }
 
   async send(request) {
