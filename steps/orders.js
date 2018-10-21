@@ -55,7 +55,7 @@ Given('Kitchen subscribes to socket to get new orders', async function() {
   await this.sleep(300)
 })
 
-Given('Order Taker changes last order quantity to {int} jamon, {int} lomo, {int} especial, {int} refrescos', function(int, int2, int3, int4) {
+Given('Order Taker changes last order quantities to {int} jamon, {int} lomo, {int} especial, {int} refrescos', function(int, int2, int3, int4) {
   // Write code here that turns the phrase above into concrete actions
   return 'pending'
 })
