@@ -4,6 +4,7 @@ const { Given, When, Then } = require('cucumber')
 const GetOrdersRequest = require('support/web/requests/kitchen-api/orders/list')
 const UpdateOrderStatusRequest = require('support/web/requests/kitchen-api/orders/update_status')
 const PlaceOrderRequest = require('support/web/requests/order-taker-api/orders/place')
+const UpdateOrderQuantitiesRequest = require('support/web/requests/order-taker-api/orders/update_quantities')
 const { expect } = require('chai')
 const Knex = require('knex')
 const KnexFile = require('../support/knexfile')
@@ -55,9 +56,15 @@ Given('Kitchen subscribes to socket to get new orders', async function() {
   await this.sleep(300)
 })
 
-Given('Order Taker changes last order quantities to {int} jamon, {int} lomo, {int} especial, {int} refrescos', function(int, int2, int3, int4) {
-  // Write code here that turns the phrase above into concrete actions
-  return 'pending'
+Given('Order Taker changes last order quantities to {int} jamon, {int} lomo, {int} especial, {int} refrescos',
+  async function(jamon, lomo, especial, refrescos) {
+  const request = new UpdateOrderQuantitiesRequest.Builder()
+    .withNewJamon(jamon)
+    .withNewLomo(lomo)
+    .withNewEspecial(especial)
+    .withNewRefrescos(refrescos)
+    .build()
+  await this.send(request)
 })
 
 When('Order Taker places an order with {int} lomo, {int} especial', async function(lomo, especial) {
