@@ -1,7 +1,8 @@
 const R = require('ramda')
 const config = require('config')
 const { Given, When, Then } = require('cucumber')
-const GetOrdersRequest = require('support/web/requests/kitchen-api/orders/list')
+const KitchenGetOrdersRequest = require('support/web/requests/kitchen-api/orders/list')
+const OrderTakerGetOrdersRequest = require('support/web/requests/order-taker-api/orders/list')
 const UpdateOrderStatusRequest = require('support/web/requests/kitchen-api/orders/update_status')
 const PlaceOrderRequest = require('support/web/requests/order-taker-api/orders/place')
 const UpdateOrderQuantitiesRequest = require('support/web/requests/order-taker-api/orders/update_quantities')
@@ -77,7 +78,12 @@ When('Order Taker places an order with {int} lomo, {int} especial', async functi
 })
 
 When('Kitchen sends request to get last orders', async function() {
-  const request = new GetOrdersRequest.Builder().build()
+  const request = new KitchenGetOrdersRequest.Builder().build()
+  await this.send(request)
+})
+
+When('Order Taker sends request to get last orders', async function() {
+  const request = new OrderTakerGetOrdersRequest.Builder().build()
   await this.send(request)
 })
 
@@ -92,6 +98,10 @@ When('Kitchen updates last order to {string}', async function(status) {
 })
 
 Then('Kitchen should receive one order', function() {
+  expect(this.lastResponse.data.length).to.eql(1)
+})
+
+Then('Order Taker should receive one order', function() {
   expect(this.lastResponse.data.length).to.eql(1)
 })
 
@@ -117,7 +127,6 @@ Then(
     expect(this.state.kitchen.orders[0].refrescos_quantity).to.eql(refrescos)
   },
 )
-
 
 Then('Kitchen should receive one order with status {string}', function(status) {
   expect(this.lastResponse.data[0].status).to.eql(status)
