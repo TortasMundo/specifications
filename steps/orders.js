@@ -115,6 +115,7 @@ Then('Kitchen should receive one order with status {string}', function(status) {
   expect(this.lastResponse.data[0].status).to.eql(status)
 })
 
-Then('Kitchen should see an order with status {string}', function(status) {
+Then('Kitchen should see an order with status {string}', async function(status) {
+  await this.awaitForSocket('placedOrder')
   expect(this.state.kitchen.orders[0].status).to.eql(status)
 })
