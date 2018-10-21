@@ -7,14 +7,11 @@ const UpdateOrderStatusRequest = require('support/web/requests/kitchen-api/order
 const PlaceOrderRequest = require('support/web/requests/order-taker-api/orders/place')
 const UpdateOrderQuantitiesRequest = require('support/web/requests/order-taker-api/orders/update_quantities')
 const { expect } = require('chai')
-const Knex = require('knex')
-const KnexFile = require('../support/knexfile')
-const knex = Knex(KnexFile)
 const moment = require('moment-timezone')
 const uuid = require('uuid')
 
 Given('there was an order registered yesterday', async function() {
-  await knex('orders').insert({
+  await this.getKnex('orders').insert({
     customer_code: '0',
     code: uuid(),
     deliverer_id: '0',
@@ -30,7 +27,6 @@ Given('there was an order registered yesterday', async function() {
     customer_location_longitude: '',
     ordered_at: moment().tz('America/Chihuahua').subtract(1, 'days'),
   })
-  await knex.destroy()
 })
 
 Given('Order Taker places an order', async function() {
