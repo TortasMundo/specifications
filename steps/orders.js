@@ -59,15 +59,15 @@ Given('Kitchen subscribes to socket to get new orders', async function() {
 
 Given('Order Taker updates last order to {int} jamon, {int} lomo, {int} especial, {int} refrescos',
   async function(jamon, lomo, especial, refrescos) {
-  const request = new UpdateOrderRequest.Builder()
-    .withCode(this.lastPlacedOrder.code)
-    .withNewJamon(jamon)
-    .withNewLomo(lomo)
-    .withNewEspecial(especial)
-    .withNewRefrescos(refrescos)
-    .build()
-  await this.send(request)
-})
+    const request = new UpdateOrderRequest.Builder()
+      .withCode(this.lastPlacedOrder.code)
+      .withNewJamon(jamon)
+      .withNewLomo(lomo)
+      .withNewEspecial(especial)
+      .withNewRefrescos(refrescos)
+      .build()
+    await this.send(request)
+  })
 
 When('Order Taker places an order with {int} lomo, {int} especial', async function(lomo, especial) {
   const request = new PlaceOrderRequest.Builder()
@@ -115,6 +115,12 @@ Then(
     expect(this.lastResponse.data[0].refrescos_quantity).to.eql(refrescos.toString())
   },
 )
+
+Then('Kitchen should receive an order with total {int}', function(total) {
+  expect(this.lastResponse.data.length).to.eql(1)
+  expect(Number(this.lastResponse.data[0].total)).to.eql(total)
+})
+
 
 Then(
   'Kitchen should see an order with {int} jamon, {int} lomo, {int} especial and {int} refrescos',
