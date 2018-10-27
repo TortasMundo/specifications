@@ -8,6 +8,7 @@ class Request extends Base {
     this.newLomo = build.newLomo
     this.newEspecial = build.newEspecial
     this.newRefrescos = build.newRefrescos
+    this.newNotes = build.newNotes
   }
 
   get method() {
@@ -15,7 +16,7 @@ class Request extends Base {
   }
 
   get path() {
-    return 'orders/update_quantities'
+    return 'orders/update'
   }
 
   get payload() {
@@ -25,6 +26,7 @@ class Request extends Base {
       newLomo: this.newLomo,
       newEspecial: this.newEspecial,
       newRefrescos: this.newRefrescos,
+      newNotes: this.newNotes,
     }
   }
 
@@ -36,6 +38,7 @@ class Request extends Base {
         this.newLomo = undefined
         this.newEspecial = undefined
         this.newRefrescos = undefined
+        this.newNotes = undefined
       }
 
       withCode(code) {
@@ -60,6 +63,11 @@ class Request extends Base {
 
       withNewRefrescos(newRefrescos) {
         this.newRefrescos = newRefrescos
+        return this
+      }
+
+      withNewNotes(newNotes) {
+        this.newNotes = newNotes
         return this
       }
 

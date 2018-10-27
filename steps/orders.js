@@ -5,7 +5,7 @@ const KitchenGetOrdersRequest = require('support/web/requests/kitchen-api/orders
 const OrderTakerGetOrdersRequest = require('support/web/requests/order-taker-api/orders/list')
 const UpdateOrderStatusRequest = require('support/web/requests/kitchen-api/orders/update_status')
 const PlaceOrderRequest = require('support/web/requests/order-taker-api/orders/place')
-const UpdateOrderQuantitiesRequest = require('support/web/requests/order-taker-api/orders/update_quantities')
+const UpdateOrderRequest = require('support/web/requests/order-taker-api/orders/update')
 const { expect } = require('chai')
 const Knex = require('knex')
 const KnexFile = require('../support/knexfile')
@@ -57,9 +57,9 @@ Given('Kitchen subscribes to socket to get new orders', async function() {
   await this.sleep(300)
 })
 
-Given('Order Taker changes last order quantities to {int} jamon, {int} lomo, {int} especial, {int} refrescos',
+Given('Order Taker updates last order to {int} jamon, {int} lomo, {int} especial, {int} refrescos',
   async function(jamon, lomo, especial, refrescos) {
-  const request = new UpdateOrderQuantitiesRequest.Builder()
+  const request = new UpdateOrderRequest.Builder()
     .withCode(this.lastPlacedOrder.code)
     .withNewJamon(jamon)
     .withNewLomo(lomo)
