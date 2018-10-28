@@ -1,10 +1,11 @@
 Feature: Get Orders
 
   Scenario: Get Placed Order
-    Given Order Taker places an order with 1 jamon
+    Given Order Taker places an order with 1 jamon, 1 lomo, 1 especial, 1 refrescos
     When Kitchen sends request to get last orders
     Then Kitchen should receive successful response
-    And Kitchen should receive an order with 1 jamon, 0 lomo, 0 especial and 0 refrescos
+    And Kitchen should receive an order with 1 jamon, 1 lomo, 1 especial and 1 refrescos
+    And Kitchen should receive an order with total 170
     And Kitchen should receive one order with status 'ORDERED'
 
   Scenario: Kitchen Gets Same Day Orders

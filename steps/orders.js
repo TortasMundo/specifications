@@ -51,6 +51,18 @@ Given('Order Taker places an order with {int} jamon', async function(jamon) {
   await this.send(request)
 })
 
+Given('Order Taker places an order with {int} jamon, {int} lomo, {int} especial, {int} refrescos',
+  async function(jamon, lomo, especial, refrescos) {
+    const request = new PlaceOrderRequest.Builder()
+      .withJamon(jamon)
+      .withLomo(lomo)
+      .withEspecial(especial)
+      .withRefrescos(refrescos)
+      .build()
+    await this.send(request)
+  })
+
+
 Given('Kitchen subscribes to socket to get new orders', async function() {
   const socket = this.createKitchenSocket()
   socket.emit('subscribe_for_order_placements', config.store_location)
